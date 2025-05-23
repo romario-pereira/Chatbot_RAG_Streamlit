@@ -79,16 +79,13 @@ def get_response(query, vector_store):
 
     # Monta o histórico do chat para dar mais contexto ao modelo
     messages = [("system", system_prompt)]
-    # Adiciona as mensagens anteriores do chat (exceto a última, que é a pergunta atual)
     for msg in st.session_state.messages:
         if msg["role"] == "user":
             messages.append(("human", msg["content"]))
         elif msg["role"] == "assistant":
             messages.append(("ai", msg["content"]))
-    # Adiciona a nova pergunta do usuário
     messages.append(("human", "{input}"))
 
-    # Monta o template de prompt com histórico
     prompt = ChatPromptTemplate.from_messages(messages)
 
     # Cria a cadeia de perguntas e respostas
@@ -128,23 +125,61 @@ def main():
     # Configura a página do Streamlit
     st.set_page_config(
         page_title="Assistente Empresarial",
-        page_icon="",
+        page_icon="💬",
         layout="centered"
     )
-    # CSS customizado para fundo e caixa de entrada
+    # CSS customizado para visual moderno e divertido
     st.markdown(
         '''
         <style>
             body, .stApp {
-                background-color: #e0e0e0 !important;
+                background: linear-gradient(120deg, #e3f0ff 0%, #b3d8f8 100%) !important;
+            }
+            .header-img {
+                width: 100%;
+                max-width: 420px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 0.5rem;
+                border-radius: 18px;
+                box-shadow: 0 4px 24px #00000022;
             }
             .stChatInput input {
-                background-color: #ededed !important;
-                border: 1.5px solid #bbb !important;
+                background-color: #eaf4fb !important;
+                border: 2px solid #4F8BF9 !important;
                 color: #222 !important;
+                border-radius: 12px !important;
+                font-size: 1.1em;
+            }
+            .stChatMessage {
+                border-radius: 16px !important;
+                margin-bottom: 12px !important;
+                box-shadow: 0 2px 12px #4f8bf91a;
+                padding: 0.5rem 1rem !important;
+            }
+            .stMarkdown {
+                font-size: 1.13em;
+            }
+            .stTitle {
+                color: #4F8BF9;
+                font-weight: 900;
+                letter-spacing: 1px;
+            }
+            .st-bb, .st-cq, .st-cv {
+                background: #f0f7ff !important;
             }
         </style>
         ''',
+        unsafe_allow_html=True
+    )
+    # Imagem de cabeçalho pequena do Streamlit (logo oficial)
+    st.markdown(
+        """
+        <div style='text-align:center;'>
+            <img src='https://streamlit.io/images/brand/streamlit-logo-secondary-colormark-darktext.png' width='80' alt='Streamlit Logo' style='margin-bottom:0.5rem;'/>
+        </div>
+        """,
         unsafe_allow_html=True
     )
     # Inicializa o estado da sessão
@@ -152,10 +187,12 @@ def main():
     # Inicializa o sistema (carrega documentos e banco vetorial)
     initialize_system()
     # Título e mensagem de boas-vindas
-    st.title("Assistente Empresarial")
+    st.title("Assistente Empresarial 🤖")
     st.markdown("""
-    Olá! Sou seu assistente virtual. Como posso ajudar você hoje?
-    """)
+    <div style='font-size:1.2em; color:#222; text-align:center; margin-bottom:1.5em;'>
+        Olá! Sou seu assistente virtual. Pergunte o que quiser sobre a empresa e divirta-se explorando!
+    </div>
+    """, unsafe_allow_html=True)
     # Exibe o histórico de mensagens do chat
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
