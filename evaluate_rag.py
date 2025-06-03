@@ -195,7 +195,7 @@ def evaluate_single_query(query_data, rag_chain, retriever_name):
         
     # Placeholder para métricas Ragas
     #result["faithfulness_score_ragas"] = calculate_ragas_faithfulness(generated_answer, retrieved_context_docs)
-    #return result
+    return result
 
 # --- 5. EXECUÇÃO DOS TESTES ---
 def run_evaluation_suite():
