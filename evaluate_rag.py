@@ -15,9 +15,6 @@ from langchain_community.retrievers import BM25Retriever
 from langchain.retrievers import EnsembleRetriever
 # Poderíamos adicionar métricas de bibliotecas como Ragas aqui no futuro, se o usuário instalar
 
-# Configuração da API Key (similar ao app.py)
-# É importante que este script também tenha acesso à OPENAI_API_KEY
-# Você pode configurar isso via variáveis de ambiente ou um .env lido por decouple
 try:
     os.environ['OPENAI_API_KEY'] = config('OPENAI_API_KEY')
 except Exception as e:
@@ -196,9 +193,9 @@ def evaluate_single_query(query_data, rag_chain, retriever_name):
     if result["ideal_answer"]:
         result["similarity_score"] = simple_similarity_scorer(generated_answer, result["ideal_answer"])
         
-    # Placeholder para métricas Ragas futuras:
-    # result["faithfulness_score_ragas"] = calculate_ragas_faithfulness(generated_answer, retrieved_context_docs)
-    return result
+    # Placeholder para métricas Ragas
+    #result["faithfulness_score_ragas"] = calculate_ragas_faithfulness(generated_answer, retrieved_context_docs)
+    #return result
 
 # --- 5. EXECUÇÃO DOS TESTES ---
 def run_evaluation_suite():
