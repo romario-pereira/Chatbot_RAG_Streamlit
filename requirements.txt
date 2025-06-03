@@ -1,8 +1,13 @@
 streamlit>=1.32.0
 python-decouple>=3.8
+python-dotenv>=1.0.0
 langchain>=0.1.12
 langchain-community>=0.0.27
 langchain-core>=0.1.27
 langchain-openai>=0.0.8
 langchain-chroma>=0.0.6
-chromadb>=0.4.24 
+chromadb>=0.4.24
+numpy>=1.24.0
+rank-bm25>=0.2.2
+pypdf>=4.0.0
+sentence-transformers>=2.2.2 
